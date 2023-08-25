@@ -1,3 +1,5 @@
+import pytest
+
 from src.item import Item
 
 """Тест с использованием pytest для модуля item."""
@@ -13,6 +15,12 @@ def test_apply_discount():
     item.pay_rate = 0.8
     item.apply_discount()
     assert item.price == 80.0
+
+
+@pytest.fixture
+def items():
+    return Item.instantiate_from_csv()
+
 
 def test_instantiate_from_csv(items):
     assert len(items) == 5  # В файле 5 записей, должно быть 5 объектов
