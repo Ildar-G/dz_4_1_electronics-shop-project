@@ -1,3 +1,7 @@
+import csv
+import os
+
+
 class Item:
     """
     Класс для представления товара в магазине.
@@ -13,10 +17,49 @@ class Item:
         :param price: Цена за единицу товара.
         :param quantity: Количество товара в магазине.
         """
-        self.name = name
+        self.__name = name
         self.price = price
         self.quantity = quantity
         Item.all.append(self)
+
+    @property
+    def name(self) -> str:
+        """
+        Получение названия товара.
+        """
+        return self.__name
+
+    @name.setter
+    def name(self, new_name: str) -> None:
+        """
+        Установка названия товара.
+        """
+        self.__name = new_name[:10]
+
+    @classmethod
+    def instantiate_from_csv(cls):
+        """
+        Инициализация экземпляров класса Item данными из файла items.csv.
+        :return: Список экземпляров класса Item.
+        """
+        src_directory = os.path.abspath(os.path.join(os.path.dirname(__file__)))
+        file_path = os.path.join(src_directory, 'items.csv')
+        items = []
+        with open(file_path, encoding='windows-1251') as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                price = cls.string_to_number(row['price'])
+                quantity = cls.string_to_number(row['quantity'])
+                name = row['name']
+                item = cls(name, price, quantity)
+                items.append(item)
+        return items
+
+    def string_to_number(value: str) -> int:
+        """
+        Преобразование числа-строки в число.
+        """
+        return int(float(value))
 
     def calculate_total_price(self) -> float:
         """
