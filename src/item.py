@@ -1,3 +1,12 @@
+import csv
+import os
+
+
+class InstantiateCSVError(Exception):
+    FILE_CORRUPTED = "Файл item.csv поврежден или пуст"
+    INVALID_DATA = "Некорректные данные в файле item.csv"
+
+
 class Item:
     """
     Класс для представления товара в магазине.
@@ -31,6 +40,35 @@ class Item:
         Установка названия товара.
         """
         self.__name = new_name[:10]
+
+    @classmethod
+    def instantiate_from_csv(cls):
+        """
+        Инициализация экземпляров класса Item данными из файла items.csv.
+        :return: Список экземпляров класса Item.
+        """
+        src_directory = os.path.abspath(os.path.join(os.path.dirname(__file__)))
+        file_path = os.path.join(src_directory, 'items.csv')
+        items = []
+        try:
+            with open(file_path, encoding='windows-1251') as csvfile:
+                reader = csv.DictReader(csvfile)
+                if reader.fieldnames != ['name', 'price', 'quantity']:
+                    raise InstantiateCSVError(InstantiateCSVError.FILE_CORRUPTED)
+                for row in reader:
+                    try:
+                        price = cls.string_to_number(row['price'])
+                        quantity = cls.string_to_number(row['quantity'])
+                    except ValueError:
+                        raise InstantiateCSVError(InstantiateCSVError.INVALID_DATA)
+                    name = row['name']
+                    item = cls(name, price, quantity)
+                    items.append(item)
+        except FileNotFoundError:
+            raise FileNotFoundError("Отсутствует файл item.csv")
+        else:
+            return items
+
 
     def calculate_total_price(self) -> float:
         """
