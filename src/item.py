@@ -69,6 +69,11 @@ class Item:
         else:
             return items
 
+    def string_to_number(value: str) -> int:
+        """
+        Преобразование числа-строки в число.
+        """
+        return int(float(value))
 
     def calculate_total_price(self) -> float:
         """
