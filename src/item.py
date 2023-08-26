@@ -48,12 +48,19 @@ class Item:
         with open(file_path, encoding='windows-1251') as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
-                price = cls.string_to_number(row['price'])
-                quantity = cls.string_to_number(row['quantity'])
-                name = row['name']
+                price = cls.string_to_number(row["price"])
+                quantity = cls.string_to_number(row["quantity"])
+                name = row["name"]
                 item = cls(name, price, quantity)
                 items.append(item)
         return items
+
+    @classmethod
+    def remove_item(cls, item):
+        """
+        Удаление объекта item из списка all.
+        """
+        cls.all.remove(item)
 
     def string_to_number(value: str) -> int:
         """
