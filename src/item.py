@@ -87,3 +87,16 @@ class Item:
 
     def __str__(self):
         return f'{self.__name}'
+
+    def __add__(self, other):
+        """
+        Сложение для экземпляров класса Item.
+        Сложение количества товара в магазине.
+
+        :param other: Другой объект (Item).
+        :return: Результат сложения количества товаров.
+        :raises: TypeError, если other не является экземпляром Item.
+        """
+        if not isinstance(other, Item):
+            raise TypeError("Можно сложить только Item.")
+        return self.quantity + other.quantity
