@@ -38,3 +38,8 @@ def test_repr():
     assert repr(item) == "Item('Смартфон', 10000, 20)"
 
 
+def test_str():
+    item = Item("Смартфон", 10000, 20)
+    assert str(item) == 'Смартфон'
+
+
