@@ -81,3 +81,22 @@ class Item:
         Применяет установленную скидку для конкретного товара.
         """
         self.price *= self.pay_rate
+
+    def __repr__(self):
+        return f"{self.__class__.__name__}('{self.__name}', {self.price}, {self.quantity})"
+
+    def __str__(self):
+        return f'{self.__name}'
+
+    def __add__(self, other):
+        """
+        Сложение для экземпляров класса Item.
+        Сложение количества товара в магазине.
+
+        :param other: Другой объект (Item).
+        :return: Результат сложения количества товаров.
+        :raises: TypeError, если other не является экземпляром Item.
+        """
+        if not isinstance(other, Item):
+            raise TypeError("Можно сложить только Item.")
+        return self.quantity + other.quantity

@@ -9,6 +9,8 @@ packages = [{include = "electronics_shop_project"}]
 [tool.poetry.dependencies]
 python = "^3.10"
 pytest = "^7.4.0"
+self = "^2020.12.3"
+other = "^1.0.0"
 
 
 [build-system]
