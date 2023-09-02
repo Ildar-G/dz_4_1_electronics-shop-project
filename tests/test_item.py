@@ -43,3 +43,7 @@ def test_str():
     assert str(item) == 'Смартфон'
 
 
+def test_add_items():
+    item1 = Item("Смартфон", 10000, 20)
+    item2 = Item("Ноутбук", 120_000, 5)
+    assert item1 + item2 == 25
