@@ -29,7 +29,7 @@ class Phone(Item):
         Установка количества поддерживаемых сим-карт.
         """
         if value < 1:
-            raise ValueError("Количество SIM-карт должно быть целым неотрицательным числом.")
+            raise ValueError("Количество SIM-карт должно быть целым числом больше нуля.")
         self._number_of_sim = value
 
     def __repr__(self):

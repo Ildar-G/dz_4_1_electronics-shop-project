@@ -31,4 +31,4 @@ def test_add_method_with_invalid_type():
 def test_inccorect_number_of_sim():
     with pytest.raises(ValueError) as excinfo:
         phone1 = Phone("iPhone 14", 120000, 5, 0)
-    assert "Количество SIM-карт должно быть целым неотрицательным числом." in str(excinfo.value)
+    assert "Количество SIM-карт должно быть целым числом больше нуля." in str(excinfo.value)
