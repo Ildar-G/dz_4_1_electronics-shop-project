@@ -15,3 +15,4 @@ class Phone(Item):
             raise TypeError("Можно сложить только Phone и Item.")
 
         return self.quantity + other.quantity
+
