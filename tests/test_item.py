@@ -47,3 +47,25 @@ def test_add_items():
     item1 = Item("Смартфон", 10000, 20)
     item2 = Item("Ноутбук", 120_000, 5)
     assert item1 + item2 == 25
+
+
+def test_item_name_setter_limit(items):
+    item = items[1]
+    item.name = 'Короткое'
+    assert item.name == 'Короткое'
+    item.name = 'Слишком Длинное Название Товара'
+    assert item.name == 'Слишком Дл'
+
+
+def test_item_name_property(items):
+    item = items[0]
+    assert item.name == 'Смартфон'
+    item.name = 'Айфон'
+    assert item.name == 'Айфон'
+
+
+def test_add_method_with_invalid_type():
+    item1 = Item("Смартфон", 10000, 20)
+    with pytest.raises(TypeError) as excinfo:
+        result = item1 + 5
+    assert "Можно сложить только Item." in str(excinfo.value)
