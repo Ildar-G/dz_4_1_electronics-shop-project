@@ -2,6 +2,11 @@ import csv
 import os
 
 
+class InstantiateCSVError(Exception):
+    FILE_CORRUPTED = "Файл item.csv поврежден или пуст"
+    INVALID_DATA = "Некорректные данные в файле item.csv"
+
+
 class Item:
     """
     Класс для представления товара в магазине.
