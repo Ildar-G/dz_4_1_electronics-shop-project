@@ -1,6 +1,6 @@
 import pytest
 
-from src.item import Item
+from src.item import Item, InstantiateCSVError
 
 """Тест с использованием pytest для модуля item."""
 
@@ -69,3 +69,18 @@ def test_add_method_with_invalid_type():
     with pytest.raises(TypeError) as excinfo:
         result = item1 + 5
     assert "Можно сложить только Item." in str(excinfo.value)
+
+
+def test_instantiate_from_csv_file_not_found():
+    with pytest.raises(FileNotFoundError, match="Отсутствует файл item.csv"):
+        Item.instantiate_from_csv()
+
+
+def test_instantiate_from_csv_file_corrupted():
+    with pytest.raises(InstantiateCSVError, match=InstantiateCSVError.FILE_CORRUPTED):
+        Item.instantiate_from_csv()
+
+
+def test_instantiate_from_csv_file_invalid_data():
+    with pytest.raises(InstantiateCSVError, match=InstantiateCSVError.INVALID_DATA):
+        Item.instantiate_from_csv()
